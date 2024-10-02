@@ -107,13 +107,13 @@ def add_user(id, user_id, name, email, password, setting_login, status, modified
         conn.commit()
 
 
-def login_user(user_id, password):
+def login_user(email, password):
     with sqlite3.connect("bencodex.db") as conn:
         c = conn.cursor()
         c.execute("""
-            select * from login_user where user_id =? and password =?
+            select * from login_user where email =? and password =?
         """, (
-                user_id, 
+                email, 
                 password
             )
         )
