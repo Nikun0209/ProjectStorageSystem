@@ -1,13 +1,14 @@
 import streamlit as st # type: ignore
+
+st.set_page_config(
+    page_title="BenCodeX",
+    page_icon="🤖",
+    layout="wide"
+)
+
 import home
 import login
 from streamlit_cookies_controller import CookieController # type: ignore
-
-# st.set_page_config(
-#     page_title="BenCodeX",
-#     page_icon="🤖",
-#     layout="wide"
-# )
 
 # Khởi tạo CookieController
 controller = CookieController()
