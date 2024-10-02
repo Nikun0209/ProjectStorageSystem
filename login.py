@@ -8,7 +8,8 @@ def login():
 
     with col2:
         # Nếu chưa đăng nhập, hiển thị form đăng nhập
-        st.subheader("🤖 Sign In to BenCodeX")
+        # st.subheader("🤖 Sign In to BenCodeX")
+        st.title("🤖 Sign In to BenCodeX")
         
         # Nhập tên người dùng và mật khẩu
         username_input = st.text_input("Email")
