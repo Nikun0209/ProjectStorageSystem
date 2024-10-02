@@ -89,7 +89,6 @@ def home():
 
                                         # Định dạng ngày giờ
                                         modified_at = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
-
                                         id = hashlib.md5(modified_at.encode()).hexdigest()
 
                                         # Thêm thông tin người dùng
