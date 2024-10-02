@@ -92,8 +92,8 @@ def home():
                                         id = hashlib.md5(modified_at.encode()).hexdigest()
 
                                         # Thêm thông tin người dùng
-                                        # connect_db.create_user_table()
-                                        # connect_db.add_user(id, user_id, name, email, password, 1, 1, username, modified_at)
+                                        connect_db.create_user_table()
+                                        connect_db.add_user(id, user_id, name, email, password, 1, 1, username, modified_at)
 
                                         st.success(f"User `{name}` added successfully!")
                                         st.rerun()  # Tải lại ứng dụng để cập nhật
@@ -107,13 +107,12 @@ def home():
                             add_user_dialog()
 
                         # Hiển thị bảng dữ liệu người dùng
-                        # user_result = connect_db.view_all_users()
-                        
-                        # if user_result:
-                        #     clear_data = pd.DataFrame(user_result, columns=["ID", "User ID", "Name", "Email", "Password", "Role Login", "Status", "Modified By", "Modified_At"])
-                        #     st.dataframe(clear_data)
-                        # else:
-                        #     st.write("No users added yet.")
+                        user_result = connect_db.view_all_users()
+                        if user_result:
+                            clear_data = pd.DataFrame(user_result, columns=["ID", "User ID", "Name", "Email", "Password", "Role Login", "Status", "Modified By", "Modified_At"])
+                            st.dataframe(clear_data)
+                        else:
+                            st.write("No users added yet.")
                             
                     elif selected == "Projects":
                         st.header("Projects Settings")
