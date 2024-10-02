@@ -1,1 +1,2 @@
 streamlit-cookies-controller==0.0.4
+streamlit-option-menu==0.3.13
