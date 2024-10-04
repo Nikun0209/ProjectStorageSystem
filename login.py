@@ -6,7 +6,6 @@ import time
 
 def login():
     col1, col2, col3 = st.columns([3, 2, 3])
-    placeholder = st.empty()
 
     with col2:
         # Nếu chưa đăng nhập, hiển thị form đăng nhập
@@ -22,16 +21,17 @@ def login():
 
             if result or (username_input == "admin" and password_input == "123"):  # Thay thế bằng điều kiện kiểm tra thực tế
                 index.controller.set('username', username_input)
+                placeholder = st.empty()
 
-                time.sleep(1)
                 placeholder.progress(0, "Wait for it...")
                 time.sleep(1)
                 placeholder.progress(50, "Wait for it...")
                 time.sleep(1)
                 placeholder.progress(100, "Wait for it...")
                 time.sleep(1)
-                
+
                 st.rerun()
                 home.home()
+
             else:
                 st.write("Login failed. Please check your username and password.")
