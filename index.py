@@ -159,7 +159,7 @@ def home():
                         # Hiển thị bảng dữ liệu người dùng
                         user_result = connect_db.view_all_users()
                         if user_result:
-                            clear_data = pd.DataFrame(user_result, columns=["ID", "User ID", "Name", "Email", "Password", "Role Login", "Status", "Modified By", "Modified_At"])
+                            clear_data = pd.DataFrame(user_result, columns=["ID", "User ID", "Name", "Email", "Password", "Role", "Status", "Modified By", "Modified_At"])
                             st.dataframe(clear_data)
                         else:
                             st.write("No users added yet.")
