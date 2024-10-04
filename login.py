@@ -16,12 +16,12 @@ def login():
         
         if st.button("Login"):
             # Kiểm tra tên người dùng và mật khẩu
-            connect_db.create_user_table()
-            result = connect_db.login_user(username_input, password_input)
+            # connect_db.create_user_table()
+            # result = connect_db.login_user(username_input, password_input)
 
-            if result or (username_input == "administrator" and password_input == "123"):  # Thay thế bằng điều kiện kiểm tra thực tế
+            if username_input == "admin" and password_input == "123":  # Thay thế bằng điều kiện kiểm tra thực tế
                 index.controller.set('username', username_input)
                 home.home()
-                st.rerun()
+                # st.rerun()
             else:
                 st.warning("Tên người dùng hoặc mật khẩu không đúng.")
