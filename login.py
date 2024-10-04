@@ -2,6 +2,7 @@ import streamlit as st # type: ignore
 import index
 import home
 import connect_db
+import streamlit.components.v1 as components
 
 def login():
     col1, col2, col3 = st.columns([3, 2, 3])
@@ -21,5 +22,11 @@ def login():
             if result or (username_input == "admin" and password_input == "123"):  # Thay thế bằng điều kiện kiểm tra thực tế
                 index.controller.set('username', username_input)
                 home.home()
+                js = """
+                    <script>
+                        window.location.reload();
+                    </script>
+                """
+                components.html(js)
             else:
                 st.warning("Tên người dùng hoặc mật khẩu không đúng.")
