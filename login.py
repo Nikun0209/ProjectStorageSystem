@@ -26,7 +26,7 @@ def login():
 
 
                 # Thiết lập tham số truy vấn
-                st.experimental_set_query_params(page="home")
+                # st.experimental_set_query_params(page="home")
                 # Sử dụng JavaScript để chuyển hướng
                 js = """
                 <script>
