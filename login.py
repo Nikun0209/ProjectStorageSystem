@@ -19,8 +19,8 @@ def login():
             result = connect_db.login_user(username_input, password_input)
 
             if result or (username_input == "admin" and password_input == "123"):  # Thay thế bằng điều kiện kiểm tra thực tế
-                index.controller.set('username', username_input)
                 st.rerun()
+                index.controller.set('username', username_input)
                 home.home()
             else:
                 st.warning("Tên người dùng hoặc mật khẩu không đúng.")
