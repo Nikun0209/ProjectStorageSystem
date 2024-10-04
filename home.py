@@ -10,8 +10,6 @@ from datetime import datetime
 def home():
     username = index.controller.get('username')  # Lấy username từ controller
 
-    st.write(username)
-
     if username:
         container = st.container(border=True)
         col1, col2, col3 = st.columns([1,8,1])
