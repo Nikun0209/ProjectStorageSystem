@@ -1,5 +1,4 @@
 import sqlite3
-from datetime import datetime
 
 def create_user_table():
     with sqlite3.connect("bencodex.db") as conn:
@@ -21,7 +20,6 @@ def create_user_table():
 
 def add_user(id, user_id, name, email, password, setting_login, status, modified_by, modified_at):
     with sqlite3.connect("bencodex.db") as conn:
-        modified_at = datetime.now()  # Lấy thời gian hiện tại
         c = conn.cursor()
         c.execute("""
             INSERT INTO login_user (id, user_id, name, email, password, setting_login, status, modified_by, modified_at)
