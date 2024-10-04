@@ -2,7 +2,6 @@ import streamlit as st # type: ignore
 import index
 import home
 import connect_db
-import streamlit.components.v1 as components
 
 def login():
     col1, col2, col3 = st.columns([3, 2, 3])
@@ -21,30 +20,7 @@ def login():
 
             if result or (username_input == "admin" and password_input == "123"):  # Thay thế bằng điều kiện kiểm tra thực tế
                 index.controller.set('username', username_input)
-                # st.rerun()
-
-                # Thiết lập tham số truy vấn
-                # st.experimental_set_query_params(page="home")
-                # # Sử dụng JavaScript để chuyển hướng
-                # js = """
-                # <script>
-                #     window.location.load()
-                # </script>
-                # """
-                # components.html(js)
-
-                # home.home()
-
-                js = """
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                <script>
-                $(document).ready(function() {
-                    window.location.href = "/home";
-                });
-                </script>
-                """
-                components.html(js)
-
-
+                st.rerun()
+                home.home()
             else:
                 st.write("Login failed. Please check your username and password.")
