@@ -24,19 +24,26 @@ def login():
                 # st.rerun()
 
                 # Thiết lập tham số truy vấn
-                st.experimental_set_query_params(page="home")
-                # Sử dụng JavaScript để chuyển hướng
+                # st.experimental_set_query_params(page="home")
+                # # Sử dụng JavaScript để chuyển hướng
+                # js = """
+                # <script>
+                #     window.location.load()
+                # </script>
+                # """
+                # components.html(js)
+
+                # home.home()
+
                 js = """
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                 <script>
-                const urlParams = new URLSearchParams(window.location.search);
-                if (urlParams.get('page') === 'home') {
-                    window.location.href = '/home';
-                }
+                $(document).ready(function() {
+                    window.location.href = "/home";
+                });
                 </script>
                 """
                 components.html(js)
-
-                home.home()
 
 
             else:
