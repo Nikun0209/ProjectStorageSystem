@@ -11,7 +11,7 @@ def login():
         st.subheader("🤖 Sign In to BenCodeX")
         
         # Nhập tên người dùng và mật khẩu
-        username_input = st.text_input("Email")
+        username_input = st.text_input("Email or User ID")
         password_input = st.text_input("Password", type='password')
         
         if st.button("Login"):
