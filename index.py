@@ -44,7 +44,7 @@ def login():
                 time.sleep(1)
 
                 st.rerun()
-                home.home()
+                home()
 
             else:
                 st.write("Login failed. Please check your username and password.")
@@ -169,10 +169,10 @@ def home():
                         st.write("This is the projects settings page.")
                 elif selected == "logout":
                     controller.remove('username')  # Xóa thông tin người dùng khỏi cookie
-                    st.success("Bạn đã đăng xuất thành công!")  # Hiển thị thông báo đăng xuất
+                    st.success("You have successfully logged out!")  # Hiển thị thông báo đăng xuất
                     st.rerun()
     else:
-        login.login()
+        login()
 
 
 # Kiểm tra xem người dùng đã đăng nhập chưa
@@ -182,7 +182,6 @@ def main():
     if username:
         home()  # Nếu đã đăng nhập, gọi hàm home
     else:
-        # login.login()  # Nếu chưa đăng nhập, gọi hàm login
         login()
 
 if __name__ == "__main__":  # Kiểm tra xem tệp đang được chạy chính hay không
