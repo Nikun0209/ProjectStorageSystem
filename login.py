@@ -22,5 +22,6 @@ def login():
             if result or (username_input == "admin" and password_input == "123"):  # Thay thế bằng điều kiện kiểm tra thực tế
                 index.controller.set('username', username_input)
                 home.home()
+                st.rerun()
             else:
                 st.warning("Tên người dùng hoặc mật khẩu không đúng.")
