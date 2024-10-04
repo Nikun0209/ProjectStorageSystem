@@ -21,9 +21,8 @@ def login():
 
             if result or (username_input == "admin" and password_input == "123"):  # Thay thế bằng điều kiện kiểm tra thực tế
                 index.controller.set('username', username_input)
-                # home.home()
                 # st.rerun()
-
+                home.home()
 
                 # Thiết lập tham số truy vấn
                 # st.experimental_set_query_params(page="home")
