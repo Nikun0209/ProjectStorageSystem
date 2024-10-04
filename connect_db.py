@@ -1,84 +1,6 @@
 import sqlite3
 from datetime import datetime
 
-# Kết nối đến cơ sở dữ liệu
-conn = sqlite3.connect("bencodex.db")
-c = conn.cursor()
-
-def create_user_table():
-    with sqlite3.connect("bencodex.db") as conn:
-        c.execute("""
-            CREATE TABLE IF NOT EXISTS login_user (
-                id,
-                user_id,
-                name TEXT,
-                email TEXT,
-                password TEXT,
-                setting_login INTEGER,
-                status INTEGER,
-                modified_by TEXT,
-                modified_at DATETIME
-            )
-        """)
-        conn.commit()  # Lưu thay đổi
-
-def add_user(id, user_id, name, email, password, setting_login, status, modified_by):
-    modified_at = datetime.now()  # Lấy thời gian hiện tại
-    c.execute("""
-        INSERT INTO login_user (
-            id
-            user_id
-            name, 
-            email, 
-            password, 
-            setting_login, 
-            status, 
-            modified_by, 
-            modified_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, (
-            id,
-            user_id,
-            name, 
-            email, 
-            password, 
-            setting_login, 
-            status, 
-            modified_by, 
-            modified_at
-        )
-    )
-    conn.commit()  # Lưu thay đổi
-
-def login_user(user_id, password):
-    c.execute("""
-        select * from login_user where user_id =? and password =?
-    """, (
-            user_id, 
-            password
-        )
-    )
-
-    data = c.fetchall()
-    return data
-
-def view_all_users():
-    c.execute("""
-        select * from login_user
-    """)
-
-    data = c.fetchall()
-    return data
-
-
-
-
-
-
-
-import sqlite3
-from datetime import datetime
-
 def create_user_table():
     with sqlite3.connect("bencodex.db") as conn:
         c = conn.cursor()
@@ -99,6 +21,7 @@ def create_user_table():
 
 def add_user(id, user_id, name, email, password, setting_login, status, modified_by, modified_at):
     with sqlite3.connect("bencodex.db") as conn:
+        modified_at = datetime.now()  # Lấy thời gian hiện tại
         c = conn.cursor()
         c.execute("""
             INSERT INTO login_user (id, user_id, name, email, password, setting_login, status, modified_by, modified_at)
@@ -107,19 +30,28 @@ def add_user(id, user_id, name, email, password, setting_login, status, modified
         conn.commit()
 
 
-def login_user(email, password):
+def login_user(user_name, password):
     with sqlite3.connect("bencodex.db") as conn:
         c = conn.cursor()
         c.execute("""
-            select * from login_user where email =? and password =?
+            select user_id, email, password from login_user where (user_id = ? or email = ?) and password = ?
         """, (
-                email, 
+                user_name,
+                user_name, 
                 password
             )
         )
 
     data = c.fetchall()
-    return data
+
+    if data:  # Nếu có dữ liệu trả về
+        return {
+            "user_id": data[0][0], 
+            "email": data[0][1], 
+            "password": data[0][2]
+        }  # Trả về dictionary
+    else:
+        return None  # Không có dữ liệu
 
 def view_all_users():
     with sqlite3.connect("bencodex.db") as conn:
@@ -127,3 +59,23 @@ def view_all_users():
         c.execute("SELECT * FROM login_user")
         users = c.fetchall()
     return users
+
+def get_user_name(name, email):
+    with sqlite3.connect("bencodex.db") as conn:
+        c = conn.cursor()
+        c.execute("""
+            SELECT name FROM login_user WHERE user_id = ? OR email = ?
+        """, (
+            name,
+            email
+        ))
+
+    data = c.fetchall()
+
+    if data:  # Nếu có dữ liệu trả về
+        return {
+            "name": data[0][0]
+        }  # Trả về dictionary
+    else:
+        return None  # Không có dữ liệu
+

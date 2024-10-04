@@ -11,6 +11,13 @@ def home():
     username = index.controller.get('username')  # Lấy username từ controller
 
     if username:
+        user_name = connect_db.get_user_name(username, username)
+
+        if user_name:
+            user_name= user_name["name"]
+        else:
+            user_name = "Admin"
+
         container = st.container(border=True)
         col1, col2, col3 = st.columns([1,8,1])
         
@@ -40,7 +47,7 @@ def home():
 
                 # Hiển thị tiêu đề theo lựa chọn
                 if selected == "home":
-                    st.title(f"Hello, {username}!")
+                    st.title(f"Hello, {user_name}!")
                 elif selected == "contact":
                     st.title(f"You have selected {selected}")
                 elif selected == "setting":
