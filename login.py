@@ -20,8 +20,26 @@ def login():
             result = connect_db.login_user(username_input, password_input)
 
             if result or (username_input == "admin" and password_input == "123"):  # Thay thế bằng điều kiện kiểm tra thực tế
-                index.controller.set('username', username_input)
-                home.home()
+                # index.controller.set('username', username_input)
+                # home.home()
                 # st.rerun()
+
+
+                # Thiết lập tham số truy vấn
+                st.experimental_set_query_params(page="home")
+                # Sử dụng JavaScript để chuyển hướng
+                js = """
+                <script>
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('page') === 'home') {
+                    window.location.href = '/home';
+                }
+                </script>
+                """
+                components.html(js)
+
+
+
+
             else:
-                st.warning("Tên người dùng hoặc mật khẩu không đúng.")
+                st.write("Login failed. Please check your username and password.")
