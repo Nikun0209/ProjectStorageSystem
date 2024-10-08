@@ -162,64 +162,6 @@ def home():
                            # Tạo DataFrame từ kết quả
                             clear_data = pd.DataFrame(user_result, columns=["ID", "User ID", "Name", "Email", "Password", "Role", "Status", "Modified By", "Modified At"])
 
-                            # Thêm CSS để làm cho nút có độ rộng 100%
-                            st.markdown(
-                                """
-                                <style>
-                                    .full-width-delete-button {
-                                        width: 100%;
-                                        display: block;
-                                        border: none;
-                                    }
-
-                                    .full-width-delete-button:hover {
-                                        background-color: red;
-                                        color: white;
-                                    }
-
-                                    .full-width-edit-button {
-                                        width: 100%;
-                                        display: block;
-                                        border: none;
-                                    }
-
-                                    .full-width-edit-button:hover {
-                                        background-color: green;
-                                        color: white;
-                                    }
-
-                                    .full-width-public-button {
-                                        width: 100%;
-                                        display: block;
-                                        border: none;
-                                        background-color: green;
-                                        color: white;
-                                    }
-
-                                    .full-width-public-button:hover {
-                                        background-color: green;
-                                        color: black;
-                                    }
-
-                                    
-                                    .full-width-private-button {
-                                        width: 100%;
-                                        display: block;
-                                        border: none;
-                                        background-color: red;
-                                        color: white;
-                                    }
-
-                                    .full-width-private-button:hover {
-                                        background-color: red;
-                                        color: black;
-                                    }
-
-                                </style>
-                                """, 
-                                unsafe_allow_html=True
-                            )
-
                             for index, row in clear_data.iterrows():
                                 data = row  # Truy cập vào Series của hàng
                                 
@@ -227,7 +169,7 @@ def home():
                                 table_user = f"""
                                 <div class="card" style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc;">
                                     <div class="card-header">
-                                        <h5 class="card-title">User ID: {data["ID"]}</h5>
+                                        <h5 class="card-title">User ID: {data["User ID"]}</h5>
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text">Name: {data["Name"]}</p>
@@ -241,33 +183,21 @@ def home():
                                 st.markdown(table_user, unsafe_allow_html=True)
 
                                 # Tạo hai nút trong cùng một hàng với độ rộng 100%
-                                col1, col2, col3 = st.columns(3)
+                                left, middle, right = st.columns(3)
                                
-                                with col1:
-                                    st.markdown(f'''
-                                            <button class="full-width-delete-button" onclick="window.location.href=\'#\'">➖ Delete</button>
-                                        ''', unsafe_allow_html=True)
+                                if left.button(f"➖ Delete", use_container_width=True):
+                                    connect_db.delete_users(data["ID"])
+                                    st.success(f"User {data['ID']} has been deleted.")
 
-                                with col2:
-                                    st.markdown(f'''
-                                        <button class="full-width-edit-button" onclick="window.location.href=\'#\'">✏️ Edit</button>
-                                    ''', unsafe_allow_html=True)
-
-                                with col3:
-                                    # Tạo nút Public hoặc Private dựa trên trạng thái
-                                    if data["Status"] == 1:
-                                        st.markdown(f'''
-                                            <button class="full-width-public-button" onclick="window.location.href=\'#\'">
-                                                🌍 Public
-                                            </button>
-                                        ''', unsafe_allow_html=True)
-                                    else:
-                                        st.markdown(f'''
-                                            <button class="full-width-private-button" onclick="window.location.href=\'#\'">
-                                                🔒 Private
-                                            </button>
-                                        ''', unsafe_allow_html=True)
-
+                                if middle.button(f"✏️ Edit", use_container_width=True):
+                                    middle.write(f"Editing user {data['ID']}")
+                                    
+                                if data["Status"] == 1:
+                                    if right.button(f"🌍 Public", use_container_width=True):
+                                        right.write(f"User {data['ID']} is now public.")
+                                else:
+                                    if right.button(f"🔒 Private", use_container_width=True):
+                                        right.write(f"User {data['ID']} is now private.")
 
                         else:
                             st.write("No users added yet.")

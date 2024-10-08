@@ -70,10 +70,16 @@ def get_user_name(name, email):
 
     data = c.fetchall()
 
-    if data:  # Nếu có dữ liệu trả về
-        return {
-            "name": data[0][0]
-        }  # Trả về dictionary
-    else:
-        return None  # Không có dữ liệu
-
+def delete_users(id):
+    with sqlite3.connect("bencodex.db") as conn:
+        c = conn.cursor()
+        # Thực hiện câu lệnh DELETE
+        c.execute("""
+            DELETE FROM login_user WHERE id = ?
+        """, (
+            id,
+        ))
+        # Cam kết các thay đổi
+        conn.commit()
+        # Trả về số lượng dòng bị ảnh hưởng (xóa)
+        return c.rowcount
