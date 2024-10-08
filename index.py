@@ -158,17 +158,6 @@ def home():
                         # Hiển thị bảng dữ liệu người dùng
                         user_result = connect_db.view_all_users()
 
-                            # if st.button("➖ Delete User", use_container_width=True):
-                            #     add_user_dialog()
-
-
-
-                        # if user_result:
-                        #     clear_data = pd.DataFrame(user_result, columns=["ID", "User ID", "Name", "Email", "Password", "Role", "Status", "Modified By", "Modified_At"])
-                        #     st.dataframe(clear_data)
-                        # else:
-                        #     st.write("No users added yet.")
-
                         if user_result:
                            # Tạo DataFrame từ kết quả
                             clear_data = pd.DataFrame(user_result, columns=["ID", "User ID", "Name", "Email", "Password", "Role", "Status", "Modified By", "Modified At"])
