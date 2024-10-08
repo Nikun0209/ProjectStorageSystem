@@ -58,7 +58,7 @@ def home():
         if user_name:
             user_name= user_name["name"]
         else:
-            user_name = "Admin"
+            user_name = "Administrator"
 
         container = st.container(border=True)
         col1, col2, col3 = st.columns([1,8,1])
@@ -115,8 +115,6 @@ def home():
                     )
 
                     if selected == "User":
-                        st.header("👤 User Management")
-
                         # Dữ liệu người dùng mẫu (nếu không có dữ liệu nào)
                         if "data" not in st.session_state:
                             st.session_state.data = {}
@@ -142,7 +140,7 @@ def home():
 
                                         # Thêm thông tin người dùng
                                         connect_db.create_user_table()
-                                        connect_db.add_user(id, user_id, name, email, password, 1, 1, username, modified_at)
+                                        connect_db.add_user(id, user_id, name, email, password, 1, 1, user_name, modified_at)
 
                                         st.success(f"User `{name}` added successfully!")
                                         st.rerun()  # Tải lại ứng dụng để cập nhật
@@ -153,6 +151,9 @@ def home():
 
                         if st.button("➕ Add User", use_container_width=True):
                             add_user_dialog()
+
+                        # Thêm đường kẻ phân cách
+                        st.markdown("<hr style='margin-top: 15px'>", unsafe_allow_html=True)
                         
 
                         # Hiển thị bảng dữ liệu người dùng
@@ -183,11 +184,25 @@ def home():
                                 st.markdown(table_user, unsafe_allow_html=True)
 
                                 # Tạo hai nút trong cùng một hàng với độ rộng 100%
+                                
+                                @st.dialog("Delete")
+
+                                def delete_user_dialog():
+                                    st.write(f"User {data["User ID"]} has been deleted.")
+
+                                    left, middle, right = st.columns(3)
+
+                                    if right.button("Cancel", use_container_width=True):
+                                        st.rerun()
+
+                                    if middle.button("Submit", use_container_width=True):
+                                        connect_db.delete_users(data["ID"])
+                                        st.rerun()
+
                                 left, middle, right = st.columns(3)
-                               
+                                    
                                 if left.button(f"➖ Delete", use_container_width=True):
-                                    connect_db.delete_users(data["ID"])
-                                    st.success(f"User {data['ID']} has been deleted.")
+                                    delete_user_dialog()                             
 
                                 if middle.button(f"✏️ Edit", use_container_width=True):
                                     middle.write(f"Editing user {data['ID']}")
